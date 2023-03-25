@@ -108,4 +108,12 @@ return [
 
     'password_timeout' => 10800,
 
+    'sanctum' => [
+        'driver' => 'session',
+        'provider' => 'users',
+        'stateful' => true,
+        'lifetime' => env('SANCTUM_STATEFUL_TTL', 120),
+        'expire_on_close' => false,
+    ],
+
 ];
