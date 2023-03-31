@@ -30,4 +30,4 @@ Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
 
 Route::get('users', [UsersController::class, 'index']);
 Route::get('users/{id}', [UsersController::class, 'show']);
-Route::post('store', [UsersController::class, 'store']);
+Route::post('edit', [UsersController::class, 'edit']);

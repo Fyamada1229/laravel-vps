@@ -21,11 +21,9 @@ class UsersController extends Controller
         return new UsersResource($user);
     }
 
-    public function store(Request $request)
+    public function edit(Request $id)
     {
-        $user = new User();
-        $user->fill($request->all())->save();
-
+        $user = User::find($id);
         return new UsersResource($user);
     }
 }
