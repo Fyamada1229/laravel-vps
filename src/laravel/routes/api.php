@@ -14,14 +14,10 @@ use App\Http\Controllers\API\AuthController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/api/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('users', [UsersController::class, 'index']);
     Route::get('users/{id}', [UsersController::class, 'show']);
     Route::post('edit', [UsersController::class, 'edit']);
+    Route::get('users', [UsersController::class, 'index']);
 });
 
 Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
