@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class UsersSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,25 +17,25 @@ class UsersSeeder extends Seeder
     {
         $now = Carbon::now();
 
-        DB::table('users')->insert([
+        DB::table('products')->insert([
             [
-                'name' => 'test1',
-                'email' => 'test1@test.com',
-                'password' => Hash::make('12345'),
+                'name' => 'ガパオライス (Gapao Rice)',
+                'price' => '800',
+                'note' => 'タイのライス',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'name' => 'test2',
-                'email' => 'test2@test.com',
-                'password' => Hash::make('12345'),
+                'name' => 'トムヤムクン (Tom Yum Goong)',
+                'price' => '950',
+                'note' => 'タイのラーメン',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'name' => 'test3',
-                'email' => 'test3@test.com',
-                'password' => Hash::make('12345'),
+                'name' => 'パッタイ (Pad Thai)',
+                'price' => '800',
+                'note' => 'タイのやきそば',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
