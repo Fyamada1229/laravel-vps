@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Services;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UsersResource;
-use App\Models\User;
-use App\Services\UsersService;
 
-class UsersController extends Controller
+
+class UsersService
 {
-
-    public function index(UsersService $service)
+    public function index()
     {
-        $user = $service->index();
-        return new UsersResource($user);
+        $user = User::all();
+        return $user;
     }
 
     public function show($id)
