@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UsersController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EmployeeAttendances;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,14 @@ use App\Http\Controllers\API\AuthController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+//ログインしたユーザのみの情報
+Route::middleware('auth:sanctum')->get('current-user', [UsersController::class, 'getCurrentUser']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('users', [UsersController::class, 'index']);
     Route::get('users/{id}', [UsersController::class, 'show']);
     Route::post('users/edit', [UsersController::class, 'edit']);
+    Route::post('users/employee_attendance', [EmployeeAttendances::class, 'store']);
 });
 
 Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {

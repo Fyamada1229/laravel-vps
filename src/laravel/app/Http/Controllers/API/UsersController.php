@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
-use App\Services\UsersService;
+use App\Models\EmployeeAttendance;
+use App\Http\Services\UsersService;
 
 class UsersController extends Controller
 {
@@ -27,5 +29,20 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         return new UsersResource($user);
+    }
+
+    public function new(Request $id)
+    {
+        dd($id);
+        $user = EmployeeAttendance::find($id);
+        return new UsersResource($user);
+    }
+
+    public function getCurrentUser()
+    {
+        // 認証されたユーザーの取得
+        $user = Auth::user();
+        // ユーザー情報を返す
+        return response()->json(['user' => $user], 200);
     }
 }
