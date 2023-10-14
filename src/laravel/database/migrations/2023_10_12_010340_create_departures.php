@@ -13,18 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employee_attendances', function (Blueprint $table) {
+        Schema::create('departures', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->comment('ユーザID');
             $table->string('name')->comment('名前');
-            $table->time('attendance_time')->comment('出勤時間');
-            $table->string('is_attendance')->comment('出勤ステース')->default(0);;
-            $table->string('next_reset_time')->comment('出勤判定ステース')->default(0);;
+            $table->time('departure_time')->comment('退勤');
+            $table->string('is_departure')->comment('退勤判定')->default(0);;
+            $table->string('next_reset_time')->comment('退勤判定ステース')->default(0);;
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE employee_attendances COMMENT = '出勤テーブル'");
+        DB::statement("ALTER TABLE departures COMMENT = '退勤テーブル'");
     }
+
     /**
      * Reverse the migrations.
      *
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_attendances');
+        Schema::dropIfExists('departures');
     }
 };

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password')->comment('パスワード');
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE users COMMENT = 'ユーザーテーブル'");
     }
 
     /**

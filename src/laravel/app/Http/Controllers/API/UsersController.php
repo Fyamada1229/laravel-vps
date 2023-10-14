@@ -33,7 +33,6 @@ class UsersController extends Controller
 
     public function new(Request $id)
     {
-        dd($id);
         $user = EmployeeAttendance::find($id);
         return new UsersResource($user);
     }

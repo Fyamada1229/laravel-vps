@@ -29,5 +29,8 @@ class EmployeeAttendancesService
     { }
 
     public function show()
-    { }
+    {
+        $employeeAttendance = EmployeeAttendance::all();
+        return new EmployeeAttendancesResource($employeeAttendance);
+    }
 }

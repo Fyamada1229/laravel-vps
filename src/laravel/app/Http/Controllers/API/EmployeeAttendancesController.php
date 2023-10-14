@@ -4,11 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\EmployeeAttendance;
 use App\Http\Services\EmployeeAttendancesService;
+use App\Models\EmployeeAttendance;
 
-class EmployeeAttendances extends Controller
+class EmployeeAttendancesController extends Controller
 {
     public function index()
     { }
@@ -16,7 +15,12 @@ class EmployeeAttendances extends Controller
     public function store(Request $request, EmployeeAttendancesService $service)
     {
         $employeeAttendance = $service->store($request);
-        //dd($employeeAttendance);
+        return $employeeAttendance;
+    }
+
+    public function show(Request $request, EmployeeAttendancesService $service)
+    {
+        $employeeAttendance = $service->show();
         return $employeeAttendance;
     }
 }

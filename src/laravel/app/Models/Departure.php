@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class EmployeeAttendance extends Model
+class Departure extends Model
 {
     use HasFactory;
 
@@ -17,8 +17,8 @@ class EmployeeAttendance extends Model
      */
     protected $fillable = [
         'name',
-        'attendance_time',
-        'is_attendance',
+        'departure_time',
+        'is_departure',
         'next_reset_time',
     ];
 
