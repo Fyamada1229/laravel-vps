@@ -3,13 +3,14 @@
 namespace App\Http\Services;
 
 use Illuminate\Http\Request;
-use App\Models\Departure;
 use App\Http\Resources\DepartureResource;
+use App\Models\Departure;
 
 class DepartureService
 {
     public function index()
-    { }
+    {
+    }
 
     public function store(Request $request)
     {
@@ -26,8 +27,17 @@ class DepartureService
     }
 
     public function edit()
-    { }
+    {
+    }
 
     public function show()
-    { }
+    {
+        $userId = auth()->id(); // ログインしているユーザーのIDを取得
+
+        $departure = Departure::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return new DepartureResource($departure);
+    }
 }

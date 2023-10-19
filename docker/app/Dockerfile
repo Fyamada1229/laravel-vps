@@ -11,6 +11,15 @@ ADD 000-default.conf /etc/apache2/sites-enabled/
 # RUN：コンテナ内でコマンド実行する
 RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
 
+# Cronをインストール
+RUN apt-get update && apt-get install -y cron
+
+# Laravelのスケジューリング用のCronジョブを設定
+RUN echo "* * * * * cd /var/www/html/laravel && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontab
+
+# Cronデーモンを起動
+CMD ["cron", "-f"]
+
 # ミドルウェアのインストール
 RUN apt-get update \
 && apt-get install -y \

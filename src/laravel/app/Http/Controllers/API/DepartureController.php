@@ -11,11 +11,18 @@ class DepartureController extends Controller
 {
 
     public function index()
-    { }
+    {
+    }
 
     public function store(Request $request, DepartureService $service)
     {
         $departure = $service->store($request);
+        return $departure;
+    }
+
+    public function show(Request $request, DepartureService $service)
+    {
+        $departure = $service->show();
         return $departure;
     }
 }

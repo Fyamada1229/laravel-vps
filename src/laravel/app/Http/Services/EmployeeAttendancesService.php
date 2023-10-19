@@ -30,7 +30,12 @@ class EmployeeAttendancesService
 
     public function show()
     {
-        $employeeAttendance = EmployeeAttendance::all();
+        $userId = auth()->id(); // ログインしているユーザーのIDを取得
+
+        $employeeAttendance = EmployeeAttendance::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         return new EmployeeAttendancesResource($employeeAttendance);
     }
 }
