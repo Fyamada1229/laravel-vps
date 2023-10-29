@@ -20,6 +20,7 @@ class EmployeeAttendance extends Model
         'attendance_time',
         'is_attendance',
         'next_reset_time',
+        'comment',
     ];
 
     public function user()

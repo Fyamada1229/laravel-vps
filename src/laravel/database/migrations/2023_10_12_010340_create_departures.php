@@ -17,13 +17,12 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id')->comment('ユーザID');
             $table->string('name')->comment('名前');
-            $table->time('departure_time')->comment('退勤');
-            $table->string('is_departure')->comment('退勤判定')->default(0);;
-            $table->string('next_reset_time')->comment('退勤判定ステース')->default(0);;
+            $table->dateTime('departure_time')->comment('退勤');
+            $table->string('is_departure')->comment('退勤判定')->default(0);
+            $table->string('next_reset_time')->comment('退勤判定ステース')->default(0);
+            $table->string('comment')->comment('コメント')->nullable();
             $table->timestamps();
         });
-
-        DB::statement("ALTER TABLE departures COMMENT = '退勤テーブル'");
     }
 
     /**

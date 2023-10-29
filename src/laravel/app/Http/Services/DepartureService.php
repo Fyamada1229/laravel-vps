@@ -26,8 +26,20 @@ class DepartureService
         return new DepartureResource($departure);
     }
 
-    public function edit()
+    public function update(Request $request)
     {
+        $userId = $request->id;
+
+        $departure = Departure::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($departure) {
+            $departure->comment = $request->comment;
+            $departure->update();
+
+            return new DepartureResource($departure);
+        }
     }
 
     public function show()

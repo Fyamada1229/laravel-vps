@@ -20,6 +20,12 @@ class DepartureController extends Controller
         return $departure;
     }
 
+    public function update(Request $request, DepartureService $service)
+    {
+        $departure = $service->update($request);
+        return $departure;
+    }
+
     public function show(Request $request, DepartureService $service)
     {
         $departure = $service->show();

@@ -20,6 +20,7 @@ class Departure extends Model
         'departure_time',
         'is_departure',
         'next_reset_time',
+        'comment',
     ];
 
     public function user()

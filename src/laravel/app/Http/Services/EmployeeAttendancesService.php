@@ -9,7 +9,8 @@ use App\Models\EmployeeAttendance;
 class EmployeeAttendancesService
 {
     public function index()
-    { }
+    {
+    }
 
     public function store(Request $request)
     {
@@ -25,8 +26,21 @@ class EmployeeAttendancesService
         return new EmployeeAttendancesResource($employeeAttendance);
     }
 
-    public function edit()
-    { }
+    public function update(Request $request)
+    {
+        $userId = $request->id;
+
+        $employeeAttendance = EmployeeAttendance::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($employeeAttendance) {
+            $employeeAttendance->comment = $request->comment;
+            $employeeAttendance->update();
+
+            return new EmployeeAttendancesResource($employeeAttendance);
+        }
+    }
 
     public function show()
     {
