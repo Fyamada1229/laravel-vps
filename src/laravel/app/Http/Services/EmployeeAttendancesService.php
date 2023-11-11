@@ -52,4 +52,27 @@ class EmployeeAttendancesService
 
         return new EmployeeAttendancesResource($employeeAttendance);
     }
+
+    public function userSearch(Request $request)
+    {
+        $userId = $request->id;
+
+        $userId = $request->id;
+
+        $employeeAttendance = EmployeeAttendance::select(
+            'employee_attendances.*',
+            'departures.departure_time',
+            'departures.comment as end_comment'
+        )
+            ->leftJoin('departures', function ($join) {
+                $join->on('employee_attendances.user_id', '=', 'departures.user_id')
+                    ->whereRaw('DATE(employee_attendances.attendance_time) = DATE(departures.departure_time)');
+            })
+            ->where('employee_attendances.user_id', $userId)
+            ->get();
+
+        //dd($employeeAttendance);
+
+        return new EmployeeAttendancesResource($employeeAttendance);
+    }
 }

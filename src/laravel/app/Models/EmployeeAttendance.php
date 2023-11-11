@@ -16,6 +16,7 @@ class EmployeeAttendance extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'attendance_time',
         'is_attendance',

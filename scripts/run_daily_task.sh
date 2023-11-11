@@ -4,7 +4,7 @@ while true; do
   if [ "$current_time" = "00:00" ]; then
     echo "タスクを実行します"  # ログ出力
     php /var/www/html/laravel/artisan reset:status
-    sleep 60
+    sleep 30
   else
     echo "条件に合致しなかったら出力"
     sleep 30

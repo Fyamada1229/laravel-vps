@@ -28,8 +28,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('users/employee_attendance', [EmployeeAttendancesController::class, 'store']);
     Route::post('employee_attendance/update', [EmployeeAttendancesController::class, 'update']);
     Route::get('get_employee_attendance', [EmployeeAttendancesController::class, 'show']);
+    Route::get('get_employee_attendance_user', [EmployeeAttendancesController::class, 'userSearch']);
     Route::post('users/departure', [DepartureController::class, 'store']);
     Route::post('users/departure/update', [DepartureController::class, 'update']);
+    Route::post('users/admin_staff_attendance_edit', [UsersController::class, 'update']);
     Route::get('get_departure', [DepartureController::class, 'show']);
 });
 

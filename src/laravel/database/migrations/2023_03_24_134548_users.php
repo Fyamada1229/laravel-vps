@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ユーザーID');
+            $table->integer('account_id')->comment('アカウントID')->nullable();;
             $table->string('name')->comment('名前');
             $table->string('email')->comment('メールアドレス');
+            $table->string('comment', 200)->comment('コメント欄')->nullable();
             $table->string('password')->comment('パスワード');
+            $table->string('admin_flag')->comment('管理者フラグ')->nullable();
             $table->timestamps();
         });
-
-        DB::statement("ALTER TABLE users COMMENT = 'ユーザーテーブル'");
     }
 
     /**

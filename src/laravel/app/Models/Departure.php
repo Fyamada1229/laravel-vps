@@ -16,6 +16,7 @@ class Departure extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'departure_time',
         'is_departure',

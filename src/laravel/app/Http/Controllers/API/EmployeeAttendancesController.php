@@ -30,4 +30,10 @@ class EmployeeAttendancesController extends Controller
         $employeeAttendance = $service->show();
         return $employeeAttendance;
     }
+
+    public function userSearch(Request $request, EmployeeAttendancesService $service)
+    {
+        $employeeAttendance = $service->userSearch($request);
+        return $employeeAttendance;
+    }
 }

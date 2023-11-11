@@ -39,6 +39,8 @@ class DepartureService
             $departure->update();
 
             return new DepartureResource($departure);
+        } else {
+            return "該当するデータがないです。";
         }
     }
 
