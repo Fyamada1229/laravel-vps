@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use Illuminate\Http\Request;
 use App\Http\Resources\DepartureResource;
 use App\Models\Departure;
+use Carbon\Carbon;
 
 class DepartureService
 {
@@ -36,7 +37,7 @@ class DepartureService
 
         if ($departure) {
             $departure->comment = $request->comment;
-            $departure->update();
+            $departure->save();
 
             return new DepartureResource($departure);
         } else {
@@ -49,8 +50,15 @@ class DepartureService
         $userId = auth()->id(); // ログインしているユーザーのIDを取得
 
         $departure = Departure::where('user_id', $userId)
+            ->where('next_reset_time', '1')
             ->orderBy('created_at', 'desc')
             ->first();
+
+        if (!$departure) {
+            $departure = Departure::where('user_id', $userId)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
 
         return new DepartureResource($departure);
     }

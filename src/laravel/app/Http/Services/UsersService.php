@@ -72,6 +72,7 @@ class UsersService
 
         return response()->json([
             'departure' => $departure,
+            'employeeAttendance' => $employeeAttendance
         ]);
     }
 }

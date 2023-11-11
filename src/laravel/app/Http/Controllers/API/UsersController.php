@@ -41,6 +41,7 @@ class UsersController extends Controller
     public function update(Request $request, UsersService $service)
     {
         $user = $service->update($request);
+        dd($user);
         return $user;
     }
 

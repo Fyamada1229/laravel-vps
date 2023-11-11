@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('email')->comment('メールアドレス');
             $table->string('comment', 200)->comment('コメント欄')->nullable();
             $table->string('password')->comment('パスワード');
-            $table->string('admin_flag')->comment('管理者フラグ')->nullable();
+            $table->integer('admin_flag')->comment('管理者フラグ')->nullable();
             $table->timestamps();
+
+            $table->comment('ユーザーテーブル');
         });
     }
 

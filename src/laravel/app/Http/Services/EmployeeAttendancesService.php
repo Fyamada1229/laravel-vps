@@ -36,7 +36,7 @@ class EmployeeAttendancesService
 
         if ($employeeAttendance) {
             $employeeAttendance->comment = $request->comment;
-            $employeeAttendance->update();
+            $employeeAttendance->save();
 
             return new EmployeeAttendancesResource($employeeAttendance);
         }
@@ -47,8 +47,15 @@ class EmployeeAttendancesService
         $userId = auth()->id(); // ログインしているユーザーのIDを取得
 
         $employeeAttendance = EmployeeAttendance::where('user_id', $userId)
+            ->where('next_reset_time', '1')
             ->orderBy('created_at', 'desc')
             ->first();
+
+        if (!$employeeAttendance) {
+            $employeeAttendance = EmployeeAttendance::where('user_id', $userId)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
 
         return new EmployeeAttendancesResource($employeeAttendance);
     }
