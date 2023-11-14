@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ユーザーID');
-            $table->integer('account_id')->comment('アカウントID')->nullable();;
+            $table->integer('account_id')->comment('アカウントID');
             $table->string('name')->comment('名前');
-            $table->string('email')->comment('メールアドレス');
+            $table->string('email')->comment('メールアドレス')->nullable();
             $table->string('comment', 200)->comment('コメント欄')->nullable();
             $table->string('password')->comment('パスワード');
             $table->integer('admin_flag')->comment('管理者フラグ')->nullable();

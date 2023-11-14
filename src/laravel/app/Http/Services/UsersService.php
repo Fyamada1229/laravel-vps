@@ -38,35 +38,43 @@ class UsersService
     {
         $date = $request->date;
         $attendance_time = $request->attendance_time;
+        $user_id = intval($request->user_id);
+        $break_minutes = intval($request->break_minutes);
 
-        $employeeAttendance = EmployeeAttendance::whereDate('attendance_time', $date)->first();
+        $employeeAttendance = EmployeeAttendance::where('user_id', $user_id)
+            ->whereDate('attendance_time', $date)->first();
 
         if ($employeeAttendance) {
             $employeeAttendance->attendance_time = $attendance_time;
+            $employeeAttendance->is_attendance = "1";
             $employeeAttendance->save();
         } else {
             $employeeAttendance = EmployeeAttendance::create([
                 'name' => $request->name,
-                'user_id' => $request->user_id,
+                'user_id' => $user_id,
                 'attendance_time' => $attendance_time,
-                'is_attendance' => "1"
+                'is_attendance' => "1",
             ]);
         }
 
         $date = $request->date;
         $departure_time = $request->departure_time;
 
-        $departure = Departure::whereDate('departure_time', $date)->first();
+        $departure = Departure::where('user_id', $user_id)
+            ->whereDate('departure_time', $date)->first();
 
         if ($departure) {
             $departure->departure_time = $departure_time;
+            $departure->break_minutes = $break_minutes;
+            $departure->is_departure = "1";
             $departure->save();
         } else {
             $departure = Departure::create([
                 'name' => $request->name,
-                'user_id' => $request->user_id,
+                'user_id' => $user_id,
                 'departure_time' => $departure_time,
-                'is_attendance' => "1"
+                'is_departure' => "1",
+                'break_minutes' => $break_minutes
             ]);
         }
 

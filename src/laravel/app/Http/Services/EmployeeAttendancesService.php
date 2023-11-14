@@ -69,7 +69,8 @@ class EmployeeAttendancesService
         $employeeAttendance = EmployeeAttendance::select(
             'employee_attendances.*',
             'departures.departure_time',
-            'departures.comment as end_comment'
+            'departures.comment as end_comment',
+            'departures.break_minutes as break_minutes',
         )
             ->leftJoin('departures', function ($join) {
                 $join->on('employee_attendances.user_id', '=', 'departures.user_id')

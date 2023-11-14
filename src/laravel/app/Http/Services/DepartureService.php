@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use Illuminate\Http\Request;
 use App\Http\Resources\DepartureResource;
 use App\Models\Departure;
+use App\Models\EmployeeAttendance;
 use Carbon\Carbon;
 
 class DepartureService
@@ -15,12 +16,29 @@ class DepartureService
 
     public function store(Request $request)
     {
+        $user_id = $request->id;
 
-        $data = $request->all();
+        $employeeAttendance = EmployeeAttendance::where('user_id', $user_id)->first();
+
+        $attendance_time = Carbon::parse($employeeAttendance->attendance_time);
+        $departure_time = Carbon::parse($request->departure_time);
+        $workHours = $departure_time->diffInHours($attendance_time);
 
         $departure = new Departure();
-        $departure->fill($data);
-        $departure->user_id = $data['id'];
+
+        if ($workHours >= 8) {
+            $departure->break_minutes = 60;
+        } elseif ($workHours > 6) {
+            $departure->break_minutes = 45;
+        } else {
+            $departure->break_minutes = 0;
+        }
+
+        $departure->departure_time = $request->departure_time;
+        $departure->user_id = $user_id;
+        $departure->name = $request->name;
+        $departure->is_departure = $request->is_departure;
+        $departure->next_reset_time = $request->next_reset_time;
         $departure->save();
 
         // リソースクラスを用いてレスポンスを返す

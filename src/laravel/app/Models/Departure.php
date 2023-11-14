@@ -21,6 +21,7 @@ class Departure extends Model
         'departure_time',
         'is_departure',
         'next_reset_time',
+        'break_minutes',
         'comment',
     ];
 

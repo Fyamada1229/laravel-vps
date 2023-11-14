@@ -14,11 +14,22 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $account_id = intval($request->account_id);
+
         $user = new User([
             'name' => $request->name,
-            'email' => $request->email,
+            'account_id' => $account_id,
             'password' => Hash::make($request->password),
         ]);
+
+        // アカウントIDが既に存在するか確認
+        $existingUser = User::where('account_id', $account_id)->first();
+
+        if ($existingUser) {
+            return response()->json([
+                'message' => "同じAccountIDが登録してあります。",
+            ], 409); // 409 Conflict を返す
+        }
 
         $user->save();
 
@@ -33,7 +44,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('account_id', $request->account_id)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
